@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
@@ -24,17 +25,48 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     @Override
-    public ToDoDto save(ToDoModel data) {
+    public ToDoDto save(ToDoModel data) throws Exception {
         ToDoDto toDoDto = new ToDoDto();
         toDoDto.setToDo(data);
         toDoDto.setDate(new Date());
         List<ToDoDto> toDoDtos = new ArrayList<>();
         toDoDtos.add(toDoDto);
         List<ToDoEntity> toDoEntities = this.DtoToToDoEntity(toDoDtos);
+        try {
+            ToDoEntity toDoEntity = toDoRepository.save(toDoEntities.get(0));
+            List<ToDoEntity> toDos = new ArrayList<>();
+            toDos.add(toDoEntity);
+            return this.ToDoEntityToDto(toDos).get(0);
+        } catch (Exception e) {
+            throw new Exception("Duplicate data");
+        }
+    }
+
+    @Override
+    public ToDoDto update(String name, ToDoModel data) {
+        List<ToDoEntity> oldToDoEntities = toDoRepository.findByName(name);
+        ToDoDto oldToDoDto = this.ToDoEntityToDto(oldToDoEntities).get(0);
+        oldToDoDto.setToDo(data);
+        oldToDoDto.setDate(new Date());
+        List<ToDoDto> toDoDtos = new ArrayList<>();
+        toDoDtos.add(oldToDoDto);
+        List<ToDoEntity> toDoEntities = this.DtoToToDoEntity(toDoDtos);
+        toDoEntities.get(0).setId(oldToDoEntities.get(0).getId());
         ToDoEntity toDoEntity = toDoRepository.save(toDoEntities.get(0));
         List<ToDoEntity> toDos = new ArrayList<>();
         toDos.add(toDoEntity);
         return this.ToDoEntityToDto(toDos).get(0);
+    }
+
+    @Override
+    public String delete(Optional<String> name) {
+        if (name.orElse("").equals("")) {
+            toDoRepository.deleteAll();
+            return "Deleted all";
+        } else {
+            toDoRepository.deleteByName(name.get());
+            return "Deleted " + name.get();
+        }
     }
 
     @Override
@@ -65,5 +97,4 @@ public class ToDoServiceImpl implements ToDoService {
         });
         return toDoEntities;
     }
-
 }
