@@ -2,7 +2,6 @@ package com.suthinan.mysql;
 
 import com.suthinan.mysql.entity.ToDoEntity;
 import com.suthinan.mysql.repository.ToDoRepository;
-import com.suthinan.mysql.service.ToDoService;
 import com.suthinan.mysql.service.impl.ToDoServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
