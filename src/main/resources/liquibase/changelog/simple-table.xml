@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="drop_simple" author="Suthinan" context="local,dev,uat,prod" runAlways="true" labels="T0.0">
+        <preConditions onFail="MARK_RAN"><tableExists schemaName="test" tableName="simple_table"/></preConditions>
+        <dropTable schemaName="test" tableName="simple_table"/>
+    </changeSet>
+
+    <changeSet id="create_simple" author="Suthinan" context="local,dev,uat,prod" runAlways="true" labels="T1.0">
+        <createTable tableName="simple_table">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints unique="true" uniqueConstraintName="pk_simple" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)" remarks="Store title of todo">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" type="varchar(255)" remarks="Store detail of todo">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="Store author name of todo" >
+                <constraints unique="true" uniqueConstraintName="unique_name" nullable="false"/>
+            </column>
+            <column name="date" type="datetime" defaultValueComputed="current_timestamp" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_simple" author="Suthinan" context="local,dev,uat,prod" runAlways="true" labels="T1.1">
+        <loadData encoding="UTF-8" file="liquibase/data/simple.csv" separator="," tableName="simple_table">
+            <column name="id" type="string"/>
+            <column name="title" type="string"/>
+            <column name="detail" type="string"/>
+            <column name="name" type="string"/>
+            <column name="date" type="date"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
