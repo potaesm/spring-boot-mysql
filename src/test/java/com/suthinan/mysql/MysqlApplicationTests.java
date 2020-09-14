@@ -8,6 +8,7 @@ class MysqlApplicationTests {
 
 	@Test
 	void contextLoads() {
+		return;
 	}
 
 }
