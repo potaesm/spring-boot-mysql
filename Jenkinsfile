@@ -10,7 +10,7 @@ pipeline{
         stage("Build Package"){
             steps{
                 echo "========Maven clean package========"
-                sh "mvn package -X"
+                sh "mvn spring-boot:run"
             }
         }
     }
