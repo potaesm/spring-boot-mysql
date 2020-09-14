@@ -10,7 +10,7 @@ pipeline{
         stage("Build Package"){
             steps{
                 echo "========Maven clean package========"
-                sh "mvn spring-boot:run"
+                sh "mvn package -Dmaven.test.skip=true"
             }
         }
     }
