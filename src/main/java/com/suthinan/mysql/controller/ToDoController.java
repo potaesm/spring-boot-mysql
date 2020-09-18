@@ -1,5 +1,7 @@
 package com.suthinan.mysql.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.suthinan.mysql.config.rest.JsonPlaceHolderRestTemplate;
 import com.suthinan.mysql.model.ToDoModel;
 import com.suthinan.mysql.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,14 @@ import java.util.Optional;
 public class ToDoController {
     @Autowired
     private ToDoService toDoService;
+
+    @Autowired
+    private JsonPlaceHolderRestTemplate jsonPlaceHolderRestTemplate;
+
+    @GetMapping("/getToDosJsonPlaceHolder")
+    public ResponseEntity<?> getToDosFromJsonPlaceHolder() throws JsonProcessingException {
+        return jsonPlaceHolderRestTemplate.getToDosFromJsonPlaceHolder();
+    }
 
     @GetMapping("/getAllToDos")
     public ResponseEntity<?> getToDos() {
