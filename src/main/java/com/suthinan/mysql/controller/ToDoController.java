@@ -1,6 +1,7 @@
 package com.suthinan.mysql.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.suthinan.mysql.config.rest.FileDownloadRestTemplate;
 import com.suthinan.mysql.config.rest.JsonPlaceHolderRestTemplate;
 import com.suthinan.mysql.model.ToDoModel;
 import com.suthinan.mysql.service.ToDoService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -20,6 +22,14 @@ public class ToDoController {
 
     @Autowired
     private JsonPlaceHolderRestTemplate jsonPlaceHolderRestTemplate;
+
+    @Autowired
+    private FileDownloadRestTemplate fileDownloadRestTemplate;
+
+    @GetMapping("/getPdf")
+    public ResponseEntity<?> downloadFile() throws IOException {
+        return fileDownloadRestTemplate.downloadFile();
+    }
 
     @GetMapping("/getToDosJsonPlaceHolder")
     public ResponseEntity<?> getToDosFromJsonPlaceHolder() throws JsonProcessingException {
