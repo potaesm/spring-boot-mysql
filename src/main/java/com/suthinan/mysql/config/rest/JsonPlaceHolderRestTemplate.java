@@ -19,9 +19,9 @@ import java.util.Date;
 import java.util.List;
 import java.net.Proxy.Type;
 
-@Configuration
+
 public class JsonPlaceHolderRestTemplate {
-    @Bean
+
     public ResponseEntity<?> getToDosFromJsonPlaceHolder() throws JsonProcessingException {
         // Allianz Proxy
         Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress("10.186.208.15", 8080));

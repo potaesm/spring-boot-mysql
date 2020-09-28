@@ -24,9 +24,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-@Configuration
+
 public class FileDownloadRestTemplate {
-    @Bean
+
     public ResponseEntity<?> downloadFile() throws IOException {
         // Allianz Proxy
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("10.186.208.15", 8080));
