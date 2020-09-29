@@ -10,8 +10,8 @@ import java.net.Proxy.Type;
 
 
 @Configuration
-public class AllianzRestTemplate {
-    @Bean
+public class AllianzRestTemplateConfig {
+    @Bean(name = "aztechRemoteRestTemplate")
     public RestTemplate aztechRemoteRestTemplate() {
         // Allianz Proxy
         Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress("10.186.208.15", 8080));

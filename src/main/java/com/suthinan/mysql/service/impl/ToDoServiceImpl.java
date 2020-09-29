@@ -2,7 +2,7 @@ package com.suthinan.mysql.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suthinan.mysql.config.rest.AllianzRestTemplate;
+import com.suthinan.mysql.config.rest.AllianzRestTemplateConfig;
 import com.suthinan.mysql.dto.ToDoDto;
 import com.suthinan.mysql.entity.ToDoEntity;
 import com.suthinan.mysql.model.JsonPlaceHolderModel;
@@ -10,6 +10,7 @@ import com.suthinan.mysql.model.ToDoModel;
 import com.suthinan.mysql.repository.ToDoRepository;
 import com.suthinan.mysql.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,8 +22,9 @@ public class ToDoServiceImpl implements ToDoService {
     @Autowired
     private ToDoRepository toDoRepository;
 
+    @Qualifier("aztechRemoteRestTemplate")
     @Autowired
-    AllianzRestTemplate allianzRestTemplate;
+    RestTemplate aztechRemoteRestTemplate;
 
     @Override
     public List<ToDoDto> findAll() {
@@ -32,7 +34,7 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Override
     public List<ToDoDto> findFromJsonPlaceHolder() throws JsonProcessingException {
-        RestTemplate restTemplate = allianzRestTemplate.aztechRemoteRestTemplate();
+        RestTemplate restTemplate = aztechRemoteRestTemplate;
         // RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity("http://jsonplaceholder.typicode.com/todos", String.class);
         // Mapper

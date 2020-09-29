@@ -1,8 +1,8 @@
 package com.suthinan.mysql.service.impl;
 
-import com.suthinan.mysql.config.rest.AllianzRestTemplate;
 import com.suthinan.mysql.service.DownloadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -10,20 +10,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Objects;
 
 @Service
 public class DownloadFileServiceImpl implements DownloadFileService {
+    @Qualifier("aztechRemoteRestTemplate")
     @Autowired
-    AllianzRestTemplate allianzRestTemplate;
+    RestTemplate aztechRemoteRestTemplate;
 
     @Override
     public ByteArrayResource getResource(String url, String fileName) throws IOException {
-        RestTemplate restTemplate = allianzRestTemplate.aztechRemoteRestTemplate();
+        RestTemplate restTemplate = aztechRemoteRestTemplate;
         // RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
         HttpHeaders requestHeaders = new HttpHeaders();
