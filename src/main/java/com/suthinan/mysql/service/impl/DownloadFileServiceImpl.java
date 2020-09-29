@@ -23,8 +23,8 @@ public class DownloadFileServiceImpl implements DownloadFileService {
 
     @Override
     public ByteArrayResource getResource(String url, String fileName) throws IOException {
-        // RestTemplate restTemplate = allianzRestTemplate.aztechRemoteRestTemplate();
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = allianzRestTemplate.aztechRemoteRestTemplate();
+        // RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new ByteArrayHttpMessageConverter());
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_OCTET_STREAM));

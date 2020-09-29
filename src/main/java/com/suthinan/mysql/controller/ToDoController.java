@@ -1,8 +1,6 @@
 package com.suthinan.mysql.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.suthinan.mysql.config.rest.FileDownloadRestTemplate;
-import com.suthinan.mysql.config.rest.JsonPlaceHolderRestTemplate;
 import com.suthinan.mysql.model.ToDoModel;
 import com.suthinan.mysql.service.DownloadFileService;
 import com.suthinan.mysql.service.ToDoService;

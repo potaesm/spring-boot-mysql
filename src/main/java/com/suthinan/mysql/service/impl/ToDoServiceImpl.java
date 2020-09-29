@@ -32,8 +32,8 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Override
     public List<ToDoDto> findFromJsonPlaceHolder() throws JsonProcessingException {
-        // RestTemplate restTemplate = allianzRestTemplate.aztechRemoteRestTemplate();
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = allianzRestTemplate.aztechRemoteRestTemplate();
+        // RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity("http://jsonplaceholder.typicode.com/todos", String.class);
         // Mapper
         ObjectMapper mapper = new ObjectMapper();
