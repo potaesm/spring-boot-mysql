@@ -8,6 +8,7 @@ import com.suthinan.mysql.entity.ToDoEntity;
 import com.suthinan.mysql.model.JsonPlaceHolderModel;
 import com.suthinan.mysql.model.ToDoModel;
 import com.suthinan.mysql.repository.ToDoRepository;
+import com.suthinan.mysql.repository.querydsl.ToDoQuerydsl;
 import com.suthinan.mysql.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,9 +23,17 @@ public class ToDoServiceImpl implements ToDoService {
     @Autowired
     private ToDoRepository toDoRepository;
 
+    @Autowired
+    private ToDoQuerydsl toDoQuerydsl;
+
     @Qualifier("aztechRemoteRestTemplate")
     @Autowired
     RestTemplate aztechRemoteRestTemplate;
+
+    @Override
+    public String findDetailByTitle(String title) {
+        return toDoQuerydsl.getDetailByTitle(title);
+    }
 
     @Override
     public List<ToDoDto> findAll() {

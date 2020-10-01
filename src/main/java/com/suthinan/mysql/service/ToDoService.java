@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ToDoService {
+    String findDetailByTitle(String title);
     List<ToDoDto> findAll();
     List<ToDoDto> findFromJsonPlaceHolder() throws JsonProcessingException;
     ToDoDto save(ToDoModel data) throws Exception;

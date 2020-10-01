@@ -43,6 +43,11 @@ public class ToDoController {
         return new ResponseEntity<>(toDoService.findFromJsonPlaceHolder(), HttpStatus.OK);
     }
 
+    @GetMapping("/getDetail/{title}")
+    public ResponseEntity<?> getDetail(@PathVariable String title) {
+        return new ResponseEntity<>(toDoService.findDetailByTitle(title), HttpStatus.OK);
+    }
+
     @GetMapping("/getAllToDos")
     public ResponseEntity<?> getToDos() {
         return new ResponseEntity<>(toDoService.findAll(), HttpStatus.OK);
